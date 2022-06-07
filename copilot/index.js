@@ -1,5 +1,15 @@
 #!/usr/bin/env node
 
-global.__rootDirectory = __dirname + '/dist/';
+const path = require("path");
+const proxy = require("node-global-proxy").default;
+// TODO: it would be better if can configurable
+proxy.setConfig("http://127.0.0.1:7890");
+proxy.start();
 
-require('./dist/agent.js')
+global.__rootDirectory = path.resolve(__dirname + "core") + "/";
+
+main();
+
+function main() {
+  require("./core/agent");
+}
